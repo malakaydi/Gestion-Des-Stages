@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NavigationListe{% endblock %}
+
+{% block body %}
+    <h1>NavigationListe</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ navigation_liste.id }}</td>
+            </tr>
+            <tr>
+                <th>Actif</th>
+                <td>{{ navigation_liste.actif ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ navigation_liste.titre }}</td>
+            </tr>
+            <tr>
+                <th>Type_de_page</th>
+                <td>{{ navigation_liste.typeDePage }}</td>
+            </tr>
+            <tr>
+                <th>Target</th>
+                <td>{{ navigation_liste.target }}</td>
+            </tr>
+            <tr>
+                <th>No_follow</th>
+                <td>{{ navigation_liste.noFollow ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('navigation_liste_index') }}">back to list</a>
+
+    <a href="{{ path('navigation_liste_edit', {'id': navigation_liste.id}) }}">edit</a>
+
+    {{ include('navigation_liste/_delete_form.html.twig') }}
+{% endblock %}

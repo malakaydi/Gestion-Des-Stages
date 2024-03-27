@@ -1,0 +1,226 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %} Secteurs d'activités {% endblock %}
+{% block stylesheets %}
+    {{parent()}}
+    <link href="{{asset('assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}"  rel="stylesheet">
+    <link href="{{asset('assets/css/jquery-ui.css')}}"  rel="stylesheet">
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{asset('assets/extra-libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery-ui.js')}}"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#table_categories').DataTable({
+            language: {
+            url: "{{asset('assets/extra-libs/datatables.net/french.json')}}"
+           },
+            columnDefs: [{
+                targets: [0,4],
+                orderable: false  
+            }],
+            order: [[ 3, "asc" ]]
+        });
+         $(".ui-sortable").sortable({
+                helper: 'clone',
+                revert: 'invalid',
+                connectWith: '.ui-sortable',
+                vertical: true,
+                update: function(event, ui) {
+                    var order = $(".ui-sortable").sortable("toArray");
+                    $.ajax({
+                        url: "{{path('categories_reorder')}}",
+                        type: "POST",
+                        data: {order:order},
+                        success:function(response){
+                            for(var key in order)
+                            {
+                                var id = order[key];
+                                var newPosition = parseInt(key) + 1;
+                                $('tr#'+id+' td.position').text(newPosition);
+                            }
+                           $('<div class="alert alert-ajax alert-success alert-dismissible bg-success text-white border-0 fade"><button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span></button>'+ response.data +'</div>').insertBefore('.page-wrapper');
+                           setTimeout(function() {
+                            $('.alert.alert-ajax').addClass('show');
+                            }, 100);
+                           setTimeout(function() {
+                               $('.alert.alert-ajax').hide();
+                               }, 1200);
+                        }
+                    });
+                },
+            });
+            $('#selectAll').click(function() {
+                $('.checkb').prop("checked", true);
+                setNbrOfChecked();
+            });
+            $('#deselectAll').click(function() {
+                $('.checkb').prop("checked", false);
+                setNbrOfChecked();
+            });
+            $('.checkb').change(function() {
+                setNbrOfChecked()
+            });
+      });
+       // confirm delete
+        function confirm_delete(item_href,item_title){
+            $('#modal_delete span#titre-departement').text(item_title);
+            $('#delete-item').attr('href',item_href);
+            $('#modal_delete').modal('show');
+        }
+         // Actions groupées
+         function setNbrOfChecked() {
+            var count = $(".checkb:checked").length;
+            if (count == 0) {
+                $('#NbrSelected').text("")
+                $("#deleteBatch").prop("disabled", true);
+            } else {
+                $('#NbrSelected').text('( ' + count + ' )')
+                $("#deleteBatch").prop("disabled", false);
+            }
+        }
+        // confirm delete all selected
+        function confirm_delete_selected(){
+            $('#modal_delete span#titre-departement').text('les catégories sélectionnées');
+            var list = getSelectedElements();
+            $('#delete-item').attr('href','{{path('categories_deleteSelected')}}?listSelected='+list+'&type='+{{type}});
+            $('#modal_delete').modal('show');
+        }
+        function getSelectedElements() {
+            var selected = [];
+            $.each($(".checkb:checked"), function() {
+                selected.push($(this).attr('data-id'));
+            });
+            return selected;
+        }
+        
+    </script>
+   
+{% endblock %}
+
+{% block body %}
+ <div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-7 align-self-center">
+                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Secteurs d'activités: 
+                {% if type == '1' %}
+                    Offres
+                {% else %}
+                    Ecoles
+                {% endif %}
+                </h3>
+            </div>
+        </div>
+    </div>
+
+     <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- basic table -->
+                 {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible bg-success text-white border-0 fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                            <div class="btn-group dropdown">
+                                <button class="btn btn-outline-info dropdown-toggle" type="button" style="width: auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Actions groupées
+                                    <span id="NbrSelected"></span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <button class="dropdown-item" id="selectAll">
+                                        <i class="far fa-check-square"></i> Tous sélectionner
+                                    </button>
+                                    <button class="dropdown-item" id="deselectAll">
+                                        <i class="far fa-square"></i> Tous désélectionner
+                                    </button>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item" id="deleteBatch" disabled onclick="confirm_delete_selected();">
+                                        <i class="fa fa-trash"></i>  Supprimer la sélection
+                                    </button>
+                                </div>
+                            </div>
+                             <a class="mb-3 pull-right btn waves-effect waves-light btn-rounded btn-primary" href="{{ path('categories_new') }}">Ajouter un nouveau secteur</a>
+                                <div class="table-responsive">
+                                    <table id="table_categories" class="table table-striped table-bordered no-wrap">
+                                      <thead>
+                                       <tr>
+                                            <th width="50"></th>
+                                            <th>Id</th>
+                                            <th>Titre</th>
+                                            <th>Position</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody class="ui-sortable">
+                                         {% for category in categories %}
+                                          <tr id="{{ category.id }}">
+                                            <td>
+                                                <input type="checkbox" class="form-control checkb" id="checkbox_{{ category.id }}" data-id="{{ category.id }}">
+                                            </td>
+                                            <td>{{ category.id }}</td>
+                                            <td>{{ category.titre }}</td>
+                                            <td class="position">{{ category.ordre }}</td>
+                                            <td width="10%">
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Actions
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-left" x-placement="bottom-start">
+                                                            <button class="dropdown-item" type="button">
+                                                            <a href="{{ path('categories_edit', {'id': category.id}) }}">Modifier</a>
+                                                            </button>
+                                                           <button type="button" class="dropdown-item" onclick="confirm_delete('{{ path('categories_delete', {'id': category.id}) }}','{{ category.titre }}');"
+                                                              >Supprimer</button>
+                                                        </div>
+                                                    </div>
+                                                    </td>
+                                          </tr>
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="5">Aucune departement trouvée</td>
+                                                </tr>
+                                         {% endfor %}
+                                      </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+ <div id="modal_delete" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">Etes-vous sûr de vouloir supprimer <span id="titre-departement"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light"
+                    data-dismiss="modal">Annuler</button>
+                <a class="btn btn-primary" id="delete-item">Supprimer</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+   
+{% endblock %}

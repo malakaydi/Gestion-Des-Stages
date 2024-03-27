@@ -1,0 +1,22 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %} Modifier région {% endblock %}
+
+{% block body %}
+<div class="page-wrapper">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-7 align-self-center">
+                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Modifier région</h3>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+            {{ include('admin/departements/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

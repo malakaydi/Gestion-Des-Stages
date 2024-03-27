@@ -1,0 +1,38 @@
+{{ form_start(form) }}
+   <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.actif) }}</label>
+        <div class="col-md-7">
+            <div class="form-group">
+                {{ form_widget(form.actif, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.email)}}</label>
+        <div class="col-md-7">
+            <div class="form-group">
+               <input placeholder="nomutilisateur@exemple.com"  {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+     <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.nom)}}</label>
+        <div class="col-md-7">
+            <div class="form-group">
+                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+     <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.prenom)}}</label>
+        <div class="col-md-7">
+            <div class="form-group">
+                {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="text-right mt-3">
+        <button type="submit" class="btn btn-info">{{ button_label|default('Enregistrer') }}</button>
+        <a href="{{ path('emailsubscription') }}" class="btn btn-dark">Retour à la liste</a>
+    </div>
+{{ form_end(form) }}

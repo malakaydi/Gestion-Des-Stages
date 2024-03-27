@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{asset('assets/extra-libs/taskboard/css/jquery-ui.min.css')}}">
+            <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            <script type="text/javascript" src="{{asset('assets/libs/jquery/dist/jquery.min.js')}}"></script>
+            <script type="text/javascript" src="{{asset('assets/js/app-style-switcher.js')}}" ></script>
+            <script type="text/javascript" src="{{asset('assets/libs/popper.js/dist/umd/popper.min.js')}}"></script>
+            <script type="text/javascript" src="{{asset('assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+            <!-- apps -->
+            <!-- apps -->
+            <script type="text/javascript" src="{{asset('assets/js/feather.min.js')}}"></script>
+            <script type="text/javascript" src="{{asset('assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js')}}"></script>
+            <script type="text/javascript" src="{{asset('assets/js/sidebarmenu.js')}}"></script>
+            <script src="{{asset('assets/extra-libs/sparkline/sparkline.js')}}"></script>
+            <!--Custom JavaScript -->
+            <script type="text/javascript" src="{{asset('assets/js/custom.min.js')}}"></script>
+            <!--This page JavaScript -->
+             <script type="text/javascript" src="{{asset('assets/extra-libs/taskboard/js/jquery-ui.min.js')}}"></script>
+            <script type="text/javascript" src="{{asset('assets/extra-libs/c3/d3.min.js')}}"></script>
+            <script type="text/javascript" src="{{asset('assets/extra-libs/c3/c3.min.js')}}"></script>
+           
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body class="{% if (page_name is defined and page_name == "page-login") %} main-admin {% endif %}"  >
+            <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+        data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+            <div class="preloader">
+                <div class="lds-ripple">
+                    <div class="lds-pos"></div>
+                    <div class="lds-pos"></div>
+                </div>
+            </div>
+            {% if app.user %}
+                {% block navbar %}
+                    {{include ('admin/navbar.html.twig')}}
+                {% endblock %}
+            
+                {% block sidbar %}
+                    {{include ('admin/sidbar.html.twig')}}
+                {% endblock %}
+            {% endif %}
+              {% block body %}
+              {% endblock %}
+
+              {% block footer %}
+                    {{include ('admin/footer.html.twig')}}
+              {% endblock %}
+             
+        </div>
+    </body>
+</html>

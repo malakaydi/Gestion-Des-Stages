@@ -1,0 +1,27 @@
+{{ form_start(form) }}
+   <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.titre) }}</label>
+        <div class="col-md-7">
+            <div class="form-group">
+                {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.type,'Type secteur') }}</label>
+        <div class="col-md-7">
+            <div class="form-group">
+                {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="text-right mt-3">
+        <button type="submit" class="btn btn-info">{{ button_label|default('Enregistrer') }}</button>
+        {% if form.type.vars['data'] is not null %}
+         <a href="{{ path('categories') }}?type={{form.type.vars['data']}}" class="btn btn-dark">Retour à la liste</a>
+        {% else %}
+            <a href="{{ path('categories') }}?type=1" class="btn btn-dark">Retour à la liste</a>
+        {% endif %}
+    </div>
+{{ form_end(form) }}
+

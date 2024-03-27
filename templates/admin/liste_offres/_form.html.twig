@@ -1,0 +1,237 @@
+{{ form_start(form) }}
+    {#{{ form_widget(form) }} 
+    {# {{ form_row(form) }} #}
+  <ul class="nav nav-tabs mb-3">
+    <li class="nav-item">
+        <a href="#node-main" data-toggle="tab" aria-expanded="false" class="nav-link">
+            <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
+            <span class="d-none d-lg-block" onclick="openPage"><h4>Informations sur l'offre de stage</h4></span>
+        </a>
+    </li>
+ <li class="nav-item">
+        <a href="#node-publishing" data-toggle="tab" aria-expanded="true"
+            class="nav-link active">
+            <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
+            <span class="d-none d-lg-block" onclick="openPage"><h4>Informations sur le profil recherché</h4></span>
+        </a>
+    </li>
+</ul>
+
+    <div class="tab-content">
+    <div class="tab-pane" id="node-main">
+
+<div class="row">
+            <label class="col-md-2 text-right">{{ form_label|default('Actif') }}</label>
+	    <div class="col-md-7">
+            <div class="form-group">
+		        <label class="form-check-label" >{{ form_widget(form.actif, {'attr': {'class': 'form-control'}}) }}</label>
+	        </div>
+        </div>
+    </div>
+
+    <div class="row">
+            <label class="col-md-2 text-right">{{ form_label|default('A la une') }}</label>
+	    <div class="col-md-7">
+            <div class="form-group">
+		        <label class="form-check-label" >{{ form_widget(form.a_la_une, {'attr': {'class': 'form-control'}}) }}</label>
+	        </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label|default('Intitulé du poste') }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+      
+
+      
+     <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.langue_offres) }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.langue_offres, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+     <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.membres) }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.membres, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+     <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.categories) }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.categories, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+     <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.fonctions) }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.fonctions, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+     <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.nombre_stagiaire) }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.nombre_stagiaire, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    
+     <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.departements) }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.departements, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+     <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.villes) }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.villes, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+     <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.date_debut_stage) }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.date_debut_stage, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.date_fin_stage) }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.date_fin_stage, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label|default('Date affichage') }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.date_depo, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label|default('Date péremption') }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.date_fin, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+     
+     <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.type_contrat) }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.type_contrat, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.Remuneration) }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.Remuneration, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label|default('Description de poste') }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.description_offres, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tab-pane show active" id="node-publishing">
+
+
+<div class="row">
+        <label class="col-md-2 text-right">{{ form_label|default('Permis voitures') }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.permis, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label|default('Niveau min d`etude') }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.niveau_etude, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+ <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.formations_requises) }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.formations_requises, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.competences) }}</label>
+     <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.competences, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.langue_parlee) }}</label>
+     <div class="col-md-7">
+            <div class="form-group" >
+                 {{ form_widget(form.langue_parlee, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+    <div class="text-right mt-3">
+        <button type="submit" class="btn btn-info" >{{ button_label|default('Enregistrer') }}</button>
+        <a href="{{ path('liste_offres') }}" class="btn btn-dark">Retour à la liste</a>
+    </div></div>
+{{ form_end(form) }}
+
+        
+         
+                 

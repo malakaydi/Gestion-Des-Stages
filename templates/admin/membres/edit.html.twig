@@ -1,0 +1,185 @@
+{% extends 'admin/base_admin.html.twig' %}
+{% block javascripts %}
+    {{parent()}}
+    <script type="text/javascript" src="{{asset('assets/js/jquery.mask.min.js')}}" ></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+    <link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
+    <script src="https://unpkg.com/dropzone"></script>
+    <script src="https://unpkg.com/cropperjs"></script>
+    <script type="text/javascript">
+      $( document ).ready(function() {
+          $('.datepicker').datepicker({
+          });
+          $.datepicker.regional['fr'] = {
+            closeText: 'Fermer',
+            prevText: '&#x3c;Préc',
+            nextText: 'Suiv&#x3e;',
+            currentText: 'Aujourd\'hui',
+            monthNames: ['Janvier','Fevrier','Mars','Avril','Mai','Juin',
+            'Juillet','Aout','Septembre','Octobre','Novembre','Decembre'],
+            monthNamesShort: ['Jan','Fev','Mar','Avr','Mai','Jun',
+            'Jul','Aou','Sep','Oct','Nov','Dec'],
+            dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+            dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
+            dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            minDate: '-80Y',
+            maxDate: '-18Y',
+            numberOfMonths: 1,
+            showButtonPanel: true
+		};
+	    $.datepicker.setDefaults($.datepicker.regional['fr']);
+        $('.phone').mask('(+00) 000 000');
+        // afficher la liste des villes selon la région
+        var departement_id = $('select.choix-region').val();
+        getVillesByDepartement(departement_id);
+        $('select.choix-region').change(function(){
+           var departement_id = $('select.choix-region').val(); 
+           getVillesByDepartement(departement_id);
+        });
+
+        /**************** crop image***************/
+
+        var $modal = $('#modal_crop');
+        var image = document.getElementById('sample_image');
+        var cropper;
+        $('.upload_photo').change(function(event){
+            var files = event.target.files;
+            var done = function (url) {
+                image.src = url;
+                $modal.modal('show');
+            };
+            if (files && files.length > 0)
+            { 
+                reader = new FileReader();
+                reader.onload = function (event) {
+                    done(reader.result);
+                };
+                reader.readAsDataURL(files[0]);  
+            }
+        });
+
+        $modal.on('shown.bs.modal', function() {
+            cropper = new Cropper(image, {
+                aspectRatio: 1,
+                viewMode: 3,
+                preview: '.preview'
+            });
+        }).on('hidden.bs.modal', function() {
+            cropper.destroy();
+            cropper = null;
+        });
+
+        $("#crop").click(function(){
+                canvas = cropper.getCroppedCanvas({
+                    width: 400,
+                    height: 400,
+                });
+            canvas.toBlob(function(blob) {
+                var reader = new FileReader();
+                reader.readAsDataURL(blob); 
+                reader.onloadend = function() {
+                    var base64data = reader.result;  
+                    $.ajax({
+                        url: "{{path('membres_cropImage')}}",
+                        type: "POST",                	
+                        data: {image: base64data},
+                        success: function(response){
+                            $modal.modal('hide');
+                            $('#upload_image').attr('src', '/'+response.path);
+                             $('#upload_image').show();
+                            $('form').append("<input type='hidden' name='photoMembre' value='"+response.imageName+"'>");
+
+                        }
+                    });
+                }
+            });
+        });
+       
+      });
+      function getVillesByDepartement(departement_id){
+            $.ajax({
+                url: "{{path('membres_getVilles')}}",
+                type: "POST",
+                data: {
+                    idDepartement:departement_id,
+                },
+                success:function(response){ 
+                  var tabVilles = response.data;
+                  $contentSelect = "";
+                  var selected = {{form.ville_id.vars.value}};
+                  var is_selected = "";
+                  for(var i=0; i< tabVilles.length; i+=1)
+                  {
+                      if(selected == tabVilles[i]["id"])
+                      {
+                          var is_selected = "selected";
+                      }
+                      else{
+                         is_selected = "" ;
+                      }
+                      $contentSelect = $contentSelect + "<option "+is_selected+" value='"+tabVilles[i]["id"]+"'>"+tabVilles[i]["titre"]+"</option>";
+                  }
+                  $('select.choix-ville').html($contentSelect);
+
+              } 
+            }); 
+      }
+    </script>
+{% endblock %}
+{% block title %} 
+    {% if typeMembre == 1 %}
+        Modifier stagiaire
+    {% elseif typeMembre == 2 %}
+        Modifier entreprise
+    {% else %}
+        Modifier écoles / université
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+<div class="page-wrapper">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-7 align-self-center">
+                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">
+                {% if typeMembre == 1 %}
+                   Modifier stagiaire
+                {% elseif typeMembre == 2 %}
+                    Modifier entreprise
+                {% else %}
+                    Modifier école
+                {% endif %}
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger  bg-danger text-white border-0 fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="card">
+            <div class="card-body">
+                {% if typeMembre == 1 %}
+                    {{ include('admin/membres/_form.html.twig') }}
+                {% elseif typeMembre == 2 %}
+                    {{ include('admin/membres/_formSocietes.html.twig') }}
+                {% else %}
+                    {{ include('admin/membres/_formEcoles.html.twig') }}
+                {% endif %}
+            
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

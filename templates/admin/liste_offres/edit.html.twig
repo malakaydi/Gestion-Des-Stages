@@ -1,0 +1,28 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}Edit Liste Offres{% endblock %}
+
+{% block body %}
+
+    <h1></h1>
+    <div class="page-wrapper">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-7 align-self-center">
+                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Edit Liste Offres</h3>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+            {{ include('admin/liste_offres/_form.html.twig', {'button_label': 'Enregister'}) }}
+            {{ include('admin/liste_offres/_delete_form.html.twig') }}
+          
+            </div>
+        </div>
+    </div>
+    
+
+   
+{% endblock %}

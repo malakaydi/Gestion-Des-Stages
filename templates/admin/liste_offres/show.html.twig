@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ListeOffres{% endblock %}
+
+{% block body %}
+    <h1>ListeOffres</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ liste_offre.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ liste_offre.titre }}</td>
+            </tr>
+            <tr>
+                <th>Langue_offres</th>
+                <td>{{ liste_offre.langueOffres }}</td>
+            </tr>
+            <tr>
+                <th>Nombre_stagiaire</th>
+                <td>{{ liste_offre.nombreStagiaire }}</td>
+            </tr>
+            <tr>
+                <th>Date_debut_stage</th>
+                <td>{{ liste_offre.dateDebutStage ? liste_offre.dateDebutStage|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_fin_stage</th>
+                <td>{{ liste_offre.dateFinStage ? liste_offre.dateFinStage|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_inscri</th>
+                <td>{{ liste_offre.dateInscri ? liste_offre.dateInscri|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Type_contrat</th>
+                <td>{{ liste_offre.typeContrat }}</td>
+            </tr>
+            <tr>
+                <th>Remuneration</th>
+                <td>{{ liste_offre.Remuneration }}</td>
+            </tr>
+            <tr>
+                <th>Description_offres</th>
+                <td>{{ liste_offre.descriptionOffres }}</td>
+            </tr>
+            <tr>
+                <th>Niveau_etude</th>
+                <td>{{ liste_offre.niveauEtude }}</td>
+            </tr>
+            <tr>
+                <th>Formations_requises</th>
+                <td>{{ liste_offre.formationsRequises }}</td>
+            </tr>
+            <tr>
+                <th>Permis</th>
+                <td>{{ liste_offre.permis ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Competences</th>
+                <td>{{ liste_offre.competences }}</td>
+            </tr>
+            <tr>
+                <th>Langue_parlee</th>
+                <td>{{ liste_offre.langueParlee }}</td>
+            </tr>
+            <tr>
+                <th>Actif</th>
+                <td>{{ liste_offre.actif ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>A_la_une</th>
+                <td>{{ liste_offre.aLaUne ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_liste_offres_index') }}">back to list</a>
+
+    <a href="{{ path('app_liste_offres_edit', {'id': liste_offre.id}) }}">edit</a>
+
+    {{ include('liste_offres/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,25 @@
+{{ form_start(form) }}
+    {# {{ form_widget(form) }} #}
+    {# {{ form_row(form) }} #}
+  
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.titre) }}</label>
+        <div class="col-md-7">
+            {# <div class="form-group">
+            {% if step_update is defined %}
+                 {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+            {% else %}
+                {% set titre = titre_departement is defined ? titre_departement:'' %}
+                {{ form_widget(form.titre, {'attr': {'class': 'form-control','value':titre}}) }}
+            {% endif %}   
+            </div> #}
+            <div class="form-group">
+                {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="text-right mt-3">
+        <button type="submit" class="btn btn-info">{{ button_label|default('Enregistrer') }}</button>
+        <a href="{{ path('departements') }}" class="btn btn-dark">Retour à la liste</a>
+    </div>
+{{ form_end(form) }}

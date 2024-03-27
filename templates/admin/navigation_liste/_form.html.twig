@@ -1,0 +1,57 @@
+{{ form_start(form) }}
+    {# {{ form_widget(form) }} #}
+    {# {{ form_row(form) }} #}
+      
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.actif)}}</label>
+        <div class="col-md-7">
+            <div class="form-group">
+                {{ form_widget(form.actif, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.titre) }}</label>
+        <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+<div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.type_de_page) }}</label>
+        <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.type_de_page, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.navigation) }}</label>
+        <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.navigation, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.target) }}</label>
+        <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.target, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-md-2 text-right">{{ form_label(form.no_follow) }}</label>
+        <div class="col-md-7">
+            <div class="form-group">
+                 {{ form_widget(form.no_follow, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="text-right mt-3">
+        <button type="submit" class="btn btn-info">{{ button_label|default('Enregistrer') }}</button>
+        <a href="{{path('navigation_liste')}}" class="btn btn-dark">Retour à la liste</a>
+    </div>
+{{ form_end(form) }}

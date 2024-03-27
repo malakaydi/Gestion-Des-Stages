@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Emailsubscription{% endblock %}
+
+{% block body %}
+    <h1>Edit Emailsubscription</h1>
+
+    {{ include('emailsubscription/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('emailsubscription_index') }}">back to list</a>
+
+    {{ include('emailsubscription/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Membres{% endblock %}
+
+{% block body %}
+    <h1>Membres</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ membre.id }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ membre.type }}</td>
+            </tr>
+            <tr>
+                <th>Civilite</th>
+                <td>{{ membre.civilite }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ membre.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ membre.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Autre_fonction</th>
+                <td>{{ membre.autreFonction }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ membre.tel }}</td>
+            </tr>
+            <tr>
+                <th>Fax</th>
+                <td>{{ membre.fax }}</td>
+            </tr>
+            <tr>
+                <th>Mot_passe</th>
+                <td>{{ membre.motPasse }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ membre.email }}</td>
+            </tr>
+            <tr>
+                <th>Siren_entreprise</th>
+                <td>{{ membre.sirenEntreprise }}</td>
+            </tr>
+            <tr>
+                <th>Siret_entreprise</th>
+                <td>{{ membre.siretEntreprise }}</td>
+            </tr>
+            <tr>
+                <th>Raison_social</th>
+                <td>{{ membre.raisonSocial }}</td>
+            </tr>
+            <tr>
+                <th>Effectifs_entreprise</th>
+                <td>{{ membre.effectifsEntreprise }}</td>
+            </tr>
+            <tr>
+                <th>Chiffre_affaire</th>
+                <td>{{ membre.chiffreAffaire }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ membre.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Site_web</th>
+                <td>{{ membre.siteWeb }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ membre.description }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ membre.photo }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ membre.titre }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ membre.status ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>New</th>
+                <td>{{ membre.new ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Date_naissance</th>
+                <td>{{ membre.dateNaissance ? membre.dateNaissance|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nationalite</th>
+                <td>{{ membre.nationalite }}</td>
+            </tr>
+            <tr>
+                <th>Tel_principal</th>
+                <td>{{ membre.telPrincipal }}</td>
+            </tr>
+            <tr>
+                <th>Tel_secondaire</th>
+                <td>{{ membre.telSecondaire }}</td>
+            </tr>
+            <tr>
+                <th>Complement_adresse</th>
+                <td>{{ membre.complementAdresse }}</td>
+            </tr>
+            <tr>
+                <th>Permis</th>
+                <td>{{ membre.permis ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Code_postal</th>
+                <td>{{ membre.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Programme_ecole</th>
+                <td>{{ membre.programmeEcole }}</td>
+            </tr>
+            <tr>
+                <th>Inscrit_nl</th>
+                <td>{{ membre.inscritNl ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Date_add</th>
+                <td>{{ membre.dateAdd ? membre.dateAdd|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('membres_index') }}">back to list</a>
+
+    <a href="{{ path('membres_edit', {'id': membre.id}) }}">edit</a>
+
+    {{ include('membres/_delete_form.html.twig') }}
+{% endblock %}

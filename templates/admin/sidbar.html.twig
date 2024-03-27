@@ -1,0 +1,137 @@
+ <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar" data-sidebarbg="skin6">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link sidebar-link" href="{{ path('admin')}}" aria-expanded="false">
+                                <i data-feather="home" class="feather-icon"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="list-divider"></li>
+                        <li class="nav-small-cap"><span class="hide-menu">Configurer</span></li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                                aria-expanded="false"><i data-feather="settings" class="feather-icon"></i><span
+                                    class="hide-menu">Administration </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                <li class="sidebar-item"> 
+                                    <a class="sidebar-link" href="{{ path('departements')}}" aria-expanded="false">
+                                        <i data-feather="map-pin" class="feather-icon"></i>
+                                        <span class="hide-menu">Régions</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item"> 
+                                    <a class="sidebar-link" href="{{ path('villes')}}" aria-expanded="false">
+                                        <i data-feather="map-pin" class="feather-icon"></i>
+                                        <span class="hide-menu">Villes</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="list-divider"></li>
+                         <li class="sidebar-item"> 
+                                    <a class="sidebar-link" href="{{path('liste_offres')}}" aria-expanded="false">
+                                        <i data-feather="settings" class="feather-icon"></i>
+                                        <span class="hide-menu">Listes des Offres</span>
+                                    </a>
+                                </li>
+                         <li class="sidebar-item"> 
+                                    <a class="sidebar-link" href="{{path('fonctions')}}" aria-expanded="false">
+                                        <i data-feather="settings" class="feather-icon"></i>
+                                        <span class="hide-menu">Fonctions</span>
+                                    </a>
+                                </li>
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link" href="{{path('ecoles')}}" aria-expanded="false">
+                                <i data-feather="settings" class="feather-icon"></i>
+                                <span class="hide-menu">Gestions des écoles</span>
+                            </a>
+                        </li>
+                         <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                                aria-expanded="false"><i data-feather="settings" class="feather-icon"></i><span
+                                    class="hide-menu">Secteurs activités</span></a>
+                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                <li class="sidebar-item"> 
+                                    <a class="sidebar-link" href="{{path('categories')}}?type=1" aria-expanded="false">
+                                        <i data-feather="settings" class="feather-icon"></i>
+                                        <span class="hide-menu">Offres</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item"> 
+                                    <a class="sidebar-link" href="{{path('categories')}}?type=2" aria-expanded="false">
+                                        <i data-feather="settings" class="feather-icon"></i>
+                                        <span class="hide-menu">Ecoles</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                          <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                                aria-expanded="false"><i data-feather="settings" class="feather-icon"></i><span
+                                    class="hide-menu">Membres</span></a>
+                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                <li class="sidebar-item"> 
+                                    <a class="sidebar-link" href="{{path('membres')}}?type=1" aria-expanded="false">
+                                        <i data-feather="settings" class="feather-icon"></i>
+                                        <span class="hide-menu">Stagiaires</span>
+                                    </a>
+                                </li>
+                                 <li class="sidebar-item"> 
+                                    <a class="sidebar-link" href="{{path('membres')}}?type=2" aria-expanded="false">
+                                        <i data-feather="settings" class="feather-icon"></i>
+                                        <span class="hide-menu">Entreprises</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item"> 
+                                    <a class="sidebar-link" href="{{path('membres')}}?type=3" aria-expanded="false">
+                                        <i data-feather="settings" class="feather-icon"></i>
+                                        <span class="hide-menu">Ecoles & universités</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                         <li class="sidebar-item"> 
+                                    <a class="sidebar-link" href="{{path('emailsubscription')}}" aria-expanded="false">
+                                        <i data-feather="settings" class="feather-icon"></i>
+                                        <span class="hide-menu">Inscription</span>
+                                    </a>
+                                </li>
+
+                         <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                                aria-expanded="false"><i data-feather="settings" class="feather-icon"></i><span
+                                    class="hide-menu">Navigation</span></a>
+                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                <li class="sidebar-item"> 
+                                    <a class="sidebar-link" href="{{path('navigation')}}" aria-expanded="false">
+                                        <i data-feather="settings" class="feather-icon"></i>
+                                        <span class="hide-menu">Menu</span>
+                                    </a>
+                                </li>
+
+                             
+                                 {% for navigation in ItemsNavigations() %}
+                                <li class="sidebar-item"> 
+                                    <a class="sidebar-link" href="{{path('navigation_items')}}?id={{navigation.id}}" aria-expanded="false">
+                                        <i data-feather="settings" class="feather-icon"></i>
+                                        <span class="hide-menu">{{navigation.titre}}</span>
+                                    </a>
+                                </li>
+                                {% endfor %}
+
+                               
+                                
+
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->

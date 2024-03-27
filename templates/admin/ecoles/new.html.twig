@@ -1,0 +1,30 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %} Nouvelle école {% endblock %}
+
+{% block body %}
+<div class="page-wrapper">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-7 align-self-center">
+                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Ajouter une nouvelle école</h3>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger  bg-danger text-white border-0 fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div class="card">
+            <div class="card-body">
+             {{ include('admin/ecoles/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
